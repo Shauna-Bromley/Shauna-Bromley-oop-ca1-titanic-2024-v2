@@ -1,4 +1,7 @@
 package org.example;
+
+import java.util.ArrayList;
+
 //ca1
 public class Passenger {
     private String passengerId;    // passenger number
@@ -154,4 +157,6 @@ public class Passenger {
     public void setEmbarkedAt(String embarkedAt) {
         this.embarkedAt = embarkedAt;
     }
-}
+
+    }
+
