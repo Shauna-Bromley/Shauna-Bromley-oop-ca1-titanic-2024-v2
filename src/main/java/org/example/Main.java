@@ -3,24 +3,25 @@ package org.example;
 import java.io. * ;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Collections;
+
+
 
 public class Main {
     public static void main(String[] args) {
 
         String fileName = "titanic-data-100.csv"; // file should be in the project folder (below pom.xml)
 
-        ArrayList<Passenger> passengerList= new ArrayList<>();
+        ArrayList<Passenger> passengerList = new ArrayList<>();
 
-        loadPassengerDataFromFile( passengerList, fileName);
+        loadPassengerDataFromFile(passengerList, fileName);
 
-        displayAllPassengers( passengerList );
+        displayAllPassengers(passengerList);
 
-
-        // Assignment: Implement and test the following methods.
-        // See the description of each method in the CA1 Specification PDF file from Moodle
-
-//        getPassengerNames();
-//        getPassengersContainingNames();
+        System.out.println("Q1 get passenger names");
+        getPassengerNames(passengerList);
+        System.out.println("Q2 get passenger names with a specific name");
+        getPassengersContainingNames(passengerList, "William");
 //        getPassengersOlderThan();
 //        countPassengersByGender();
 //        sumFares();
@@ -45,10 +46,11 @@ public class Main {
 
     /**
      * Populate an ArrayList of Passenger objects with data from a text file
+     *
      * @param passengerList - an ArrayList to be filled with Passenger objects
-     * @param fileName - name of CSV text file containing passenger details
+     * @param fileName      - name of CSV text file containing passenger details
      */
-    public static void loadPassengerDataFromFile( ArrayList<Passenger> passengerList, String fileName) {
+    public static void loadPassengerDataFromFile(ArrayList<Passenger> passengerList, String fileName) {
 
         // Format of each row of data is:
         // Name,Age,Height(m),GPA  - these heading names are included as the first row in file
@@ -61,18 +63,16 @@ public class Main {
         // Windows uses CRLF (\r\n, 0D 0A) line endings while Unix just uses LF (\n, 0A).
         //
         try (Scanner sc = new Scanner(new File(fileName))
-                .useDelimiter("[,\\r\\n]+"))
-        {
+                .useDelimiter("[,\\r\\n]+")) {
 
             // skip past the first line, as it has field names (not data)
-            if(sc.hasNextLine())
+            if (sc.hasNextLine())
                 sc.nextLine();   // read the header line containing column titles, but don't use it
 
             // while there is a next token to read....
             System.out.println("Go...");
 
-            while (sc.hasNext())
-            {
+            while (sc.hasNext()) {
                 String passengerId = sc.next();    // read passenger ID
                 int survived = sc.nextInt();     // 0=false, 1=true
                 int passengerClass = sc.nextInt();  // passenger class, 1=1st, 2=2nd or 3rd
@@ -86,25 +86,39 @@ public class Main {
                 String cabin = sc.next();
                 String embarkedAt = sc.next();
 
-                System.out.println(passengerId +", " + name);
+                System.out.println(passengerId + ", " + name);
 
                 passengerList.add(
-                        new Passenger( passengerId, survived, passengerClass,
-                                name, gender, age, siblingsAndSpouses,parentsAndChildren,ticketNumber,
+                        new Passenger(passengerId, survived, passengerClass,
+                                name, gender, age, siblingsAndSpouses, parentsAndChildren, ticketNumber,
                                 fare, cabin, embarkedAt)
                 );
             }
-        } catch (FileNotFoundException exception)
-        {
-            System.out.println("FileNotFoundException caught. The file " +fileName+ " may not exist." + exception);
+        } catch (FileNotFoundException exception) {
+            System.out.println("FileNotFoundException caught. The file " + fileName + " may not exist." + exception);
         }
     }
 
-    public static void displayAllPassengers( ArrayList<Passenger> passengerList ) {
+    public static void displayAllPassengers(ArrayList<Passenger> passengerList) {
         System.out.println("Displaying all passengers:");
-        for( Passenger passenger : passengerList)
-        {
+        for (Passenger passenger : passengerList) {
             System.out.println(passenger);
+        }
+    }
+
+    // Q1 getPassengerNames();
+    public static void getPassengerNames(ArrayList<Passenger> passengers) {
+        for (Passenger passenger : passengers) {
+            System.out.println(passenger.getName());
+        }
+    }
+
+    //Q2. getPassengerContainingName();
+    public static void getPassengersContainingNames(ArrayList<Passenger> passengers, String name) {
+        for (Passenger passenger : passengers) {
+            if (passenger.getName().contains(name)) {
+                System.out.println(passenger.getName());
+            }
         }
     }
 }
