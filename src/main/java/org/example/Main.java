@@ -1,6 +1,7 @@
 package org.example;
 // CA1
 import java.io. * ;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
@@ -41,7 +42,9 @@ public class Main {
 
         System.out.println("\nQ8 getting the average age of passengers");
         averageAge(passengerList);
-//        getPassengersByTicketClass();
+
+        System.out.println("\nQ9 getting passengers by ticket class");
+        getPassengersByTicketClass(passengerList,PassengerClass.FIRST);
 //        sortPassengersByPassengerId()
 //        sortPassengersByName();
 //        sortPassengersByAgeThenName();
@@ -187,5 +190,14 @@ public class Main {
         }
         double averageAge  = (double) total / passengers.size();
         System.out.println(averageAge);
+    }
+
+    //Q9 getPassengersByTicketClass
+    public static void getPassengersByTicketClass(ArrayList<Passenger> passengers, PassengerClass passengerClass) {
+        for (Passenger passenger : passengers) {
+            if (passenger.getPassengerClass().equals(passengerClass)) {
+                System.out.println(passenger);
+            }
+        }
     }
 }
