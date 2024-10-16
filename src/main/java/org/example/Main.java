@@ -3,6 +3,7 @@ package org.example;
 import java.io. * ;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Collections;
 
@@ -45,7 +46,14 @@ public class Main {
 
         System.out.println("\nQ9 getting passengers by ticket class");
         getPassengersByTicketClass(passengerList,PassengerClass.FIRST);
-//        sortPassengersByPassengerId()
+
+        System.out.println("\nQ10 sorting passengers by ID");
+        sortPassengersByPassengerId(passengerList);
+
+        Collections.sort(passengerList, new PassengerNameWithinAgeComparator());
+        for (int i=0; i<passengerList.size(); i++){
+            System.out.println(passengerList.get(i));
+        }
 //        sortPassengersByName();
 //        sortPassengersByAgeThenName();
 //        sortPassengersByGenderThenPassengerNumber()
@@ -198,6 +206,15 @@ public class Main {
             if (passenger.getPassengerClass().equals(passengerClass)) {
                 System.out.println(passenger);
             }
+        }
+    }
+
+    //Q10 sortPassengersByPassengerID
+    public static void sortPassengersByPassengerId (ArrayList<Passenger> passengers) {
+        Collections.sort(passengers);
+
+        for (Passenger passenger : passengers) {
+            System.out.println(passenger);
         }
     }
 }
