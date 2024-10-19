@@ -77,8 +77,39 @@ public class Main {
 
         System.out.println("\nQ17 sorting passengers by by ticket number using a lambda function");
         sortPassengersByTicketNumberLambda(passengerList);
-//        sortPassengersByTicketNumberStatic();
-//        findPassengerByTicketNumber();
+
+        System.out.println("\nQ18 sorting passengers by ticket number");
+        sortPassengersByTicketNumberStatic(passengerList);
+
+        System.out.println("\nQ19 finding a passenger with a certain ticket number using binary search");
+        //This did not return the passenger I wanted as it
+        //says that the key value was not found
+        //despite that being a ticket number
+        //I think it may be to do with the binary search
+        //relying on natural order which is assigned to
+        //PassengerID which I am unsure how to change to suit this question
+        Collections.sort (passengerList, new PassengersTicketNumberComparator());
+        Passenger key = new Passenger ("",0,0,"","",0,0,0,"W.E.P.",0,"","");
+        int index = Collections.binarySearch(passengerList, key);
+        if (index < 0)
+        {
+            System.out.println("Key value not found");
+        }
+        else {
+            System.out.println(passengerList.get(index).toString());
+        }
+
+        System.out.println("\nQ20 finding a passenger with a certain id using binary search");
+        Collections.sort (passengerList);
+        Passenger key1 = new Passenger ("93",0,0,"","",0,0,0,"",0,"","");
+        index = Collections.binarySearch(passengerList, key1);
+        if (index < 0)
+        {
+            System.out.println("Key value not found");
+        }
+        else {
+            System.out.println(passengerList.get(index).toString());
+        }
 //        findPassengerByPassengerId();
 
         System.out.println("Finished, Goodbye!");
@@ -254,8 +285,6 @@ public class Main {
     //while this method did sort by gender first it did not seem
     //to sort by passenger number, I cannot see anything particularly
     //wrong with my code in the comparator class for this
-    //I tried changing my comparable where I had changed the ID
-    //to an int to see if that had any affect on it and it didn't
     public static void sortPassengersByGenderThenPassengerNumber (ArrayList<Passenger> passengers) {
         Collections.sort(passengers, new PassengerPNumberWithinGenderComparator());
         for (Passenger passenger : passengers) {
@@ -289,6 +318,14 @@ public class Main {
     //Q17 sortPassengersByTicketNumberLambda
     public static void sortPassengersByTicketNumberLambda (ArrayList<Passenger> passengers) {
         Collections.sort(passengers,(p1,p2) -> p1.getTicketNumber().compareTo(p2.getTicketNumber()));
+        for (Passenger passenger : passengers) {
+            System.out.println(passenger);
+        }
+    }
+
+    //Q18 sortPassengersByTicketNumberStatic
+    public static void sortPassengersByTicketNumberStatic (ArrayList<Passenger> passengers) {
+        Collections.sort(passengers, new PassengersTicketNumberComparator());
         for (Passenger passenger : passengers) {
             System.out.println(passenger);
         }

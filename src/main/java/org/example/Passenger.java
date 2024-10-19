@@ -164,13 +164,15 @@ public class Passenger implements Comparable<Passenger> {
     //ie it went 1,10,11,12......2,20,21... etc. To me this
     //is not actually sorting by passenger ID as this is
     //not how you would normally sort numbers
+    //I then commented out this code as it stopped my binary search from working
     @Override
     public int compareTo(Passenger otherPassenger){
-        String text = passengerId;
-        int num = Integer.parseInt(text);
-        String text1 = otherPassenger.getPassengerId();
-        int num1 = Integer.parseInt(text1);
-        return Integer.compare(num, num1);
+//        String text = passengerId;
+//        int num = Integer.parseInt(text);
+//        String text1 = otherPassenger.getPassengerId();
+//        int num1 = Integer.parseInt(text1);
+//        return Integer.compare(num, num1);
+        return this.passengerId.compareTo(otherPassenger.getPassengerId());
     }
 
 }
