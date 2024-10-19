@@ -11,6 +11,7 @@ public class PassengerNameWithinAgeComparator implements Comparator<Passenger> {
             {
                 return p1.getName().compareTo(p2.getName());
             }
+            return 0;
         }
         else if (p1.getAge() < p2.getAge())
         {
@@ -19,6 +20,6 @@ public class PassengerNameWithinAgeComparator implements Comparator<Passenger> {
         else {
             return 1;
         }
-        return 0;
+
     }
 }

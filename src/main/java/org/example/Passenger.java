@@ -159,6 +159,11 @@ public class Passenger implements Comparable<Passenger> {
     }
 
     //Q10 comparable
+    //I converted the ID to an int as when it sorted based
+    //on the ID as a string it sorted them in alphabetical order
+    //ie it went 1,10,11,12......2,20,21... etc. To me this
+    //is not actually sorting by passenger ID as this is
+    //not how you would normally sort numbers
     @Override
     public int compareTo(Passenger otherPassenger){
         String text = passengerId;

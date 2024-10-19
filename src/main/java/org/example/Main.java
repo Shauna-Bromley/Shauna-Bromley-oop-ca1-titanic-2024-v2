@@ -1,12 +1,7 @@
 package org.example;
 // CA1
 import java.io. * ;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.Collections;
-
+import java.util.*;
 
 
 public class Main {
@@ -50,17 +45,38 @@ public class Main {
         System.out.println("\nQ10 sorting passengers by ID");
         sortPassengersByPassengerId(passengerList);
 
-        Collections.sort(passengerList, new PassengerNameWithinAgeComparator());
-        for (int i=0; i<passengerList.size(); i++){
-            System.out.println(passengerList.get(i));
-        }
-//        sortPassengersByName();
-//        sortPassengersByAgeThenName();
-//        sortPassengersByGenderThenPassengerNumber()
-//        sortPassengersByFareThenSurvival();
-//        sortPassengersByTicketClass()
-//        sortPassengersByAge();
-//        sortPassengersByTicketNumberLambda();
+        //The questions only said to use separate comparator classes from Q12
+        //onwards but after setting the passengerID as the natural order
+        //I didn't know how to use the comparable compareTo to sort by another parameter
+        //so, I used a comparator for this as well
+        System.out.println("\nQ11 sorting passengers by name");
+        sortPassengersByName(passengerList);
+
+        System.out.println("\nQ12 sorting passengers by age and then by name");
+        sortPassengersByAgeThenName(passengerList);
+
+        System.out.println("\nQ13 sorting passengers by gender then by passenger number");
+        sortPassengersByGenderThenPassengerNumber(passengerList);
+
+        System.out.println("\nQ14 sorting passengers by fare then whether they survived or not");
+        sortPassengersByFareThenSurvival(passengerList);
+
+        System.out.println("\nQ15 sorting passengers by ticket class");
+        sortPassengersByTicketClass(passengerList);
+
+        System.out.println("\nQ16 sorting passengers by age using anonymous class");
+        Collections.sort(passengerList, new Comparator(){
+            @Override
+            public int compare(Object o1, Object o2) {
+                int age = ((Passenger)o1).getAge();
+                int age2 = ((Passenger)o2).getAge();
+                return age-age2;
+            }
+        });
+        System.out.println(passengerList);
+
+        System.out.println("\nQ17 sorting passengers by by ticket number using a lambda function");
+        sortPassengersByTicketNumberLambda(passengerList);
 //        sortPassengersByTicketNumberStatic();
 //        findPassengerByTicketNumber();
 //        findPassengerByPassengerId();
@@ -213,6 +229,66 @@ public class Main {
     public static void sortPassengersByPassengerId (ArrayList<Passenger> passengers) {
         Collections.sort(passengers);
 
+        for (Passenger passenger : passengers) {
+            System.out.println(passenger);
+        }
+    }
+
+    //Q11 sorPassengersByName
+    public static void sortPassengersByName (ArrayList<Passenger> passengers) {
+        Collections.sort(passengers, new PassengerNameComparator());
+        for (Passenger passenger : passengers) {
+            System.out.println(passenger);
+        }
+    }
+
+    //Q12 sortPassengersByAgeThenNameComparator
+    public static void sortPassengersByAgeThenName(ArrayList<Passenger> passengers) {
+        Collections.sort(passengers, new PassengerNameWithinAgeComparator());
+        for (Passenger passenger : passengers) {
+            System.out.println(passenger);
+        }
+    }
+
+    //Q13 sortPassengersByGenderThenPassengerNumber
+    //while this method did sort by gender first it did not seem
+    //to sort by passenger number, I cannot see anything particularly
+    //wrong with my code in the comparator class for this
+    //I tried changing my comparable where I had changed the ID
+    //to an int to see if that had any affect on it and it didn't
+    public static void sortPassengersByGenderThenPassengerNumber (ArrayList<Passenger> passengers) {
+        Collections.sort(passengers, new PassengerPNumberWithinGenderComparator());
+        for (Passenger passenger : passengers) {
+            System.out.println(passenger);
+        }
+    }
+
+    //Q14 sortPassengersByFareThenSurvival
+    public static void sortPassengersByFareThenSurvival(ArrayList<Passenger> passengers) {
+        Collections.sort(passengers, new PassengersSurvivedWithinFareComparator());
+        for (Passenger passenger : passengers) {
+            System.out.println(passenger);
+        }
+    }
+
+    //Q15 sortPassengersByTicketClass
+    //I wasn't entirely sure how to compare enum values
+    //the sorting seemed to have worked for the first couple of
+    //passengers as it had all THIRD first
+    //but after a while it seemed to devolve and have some
+    //THIRD in with SECOND and the same further on
+    //I have tried multiple methods to fix this, but I
+    //couldn't find an answer
+    public static void sortPassengersByTicketClass (ArrayList<Passenger> passengers) {
+        Collections.sort(passengers, new PassengersTicketClassComparator());
+        for (Passenger passenger : passengers) {
+            System.out.println(passenger);
+        }
+    }
+
+    //Q17 sortPassengersByTicketNumberLambda
+    public static void sortPassengersByTicketNumberLambda (ArrayList<Passenger> passengers) {
+        Collections.sort(passengers,(p1,p2) -> p1.getTicketNumber().compareTo(p2.getTicketNumber()));
         for (Passenger passenger : passengers) {
             System.out.println(passenger);
         }
